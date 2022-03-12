@@ -22,24 +22,6 @@ async function api(level, parent) {
     .then(res => res.json())
 }
 
-async function apiKec(parent) {
-  return await fetch(`https://sig.bps.go.id/rest-bridging/getwilayah?level=kecamatan&parent=${parent}`, {
-    "credentials": "include",
-    "headers": {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
-        "Accept": "*/*",
-        "Accept-Language": "en-US,en;q=0.5",
-        "X-Requested-With": "XMLHttpRequest",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin"
-    },
-    "referrer": "https://sig.bps.go.id/bridging-kode/index",
-    "method": "GET",
-    "mode": "cors"
-  }).then(res => res.text())
-}
-
 console.log("============= PROVINSI ===========")
 const provinces = await api('provinsi', 0)
 console.log(provinces)
