@@ -2,12 +2,12 @@
   "name": "fetch-bridging-wilayah-bps-mendagri",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "erdivartanovich",
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^3.2.3"

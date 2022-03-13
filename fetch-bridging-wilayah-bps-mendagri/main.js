@@ -1,24 +1,23 @@
 import fetch from 'node-fetch'
-import { arrayChunks } from './utils.js'
 import { promiseEach } from './promise-each.js'
 
 async function api(level, parent) {
   const baseUrl = "https://sig.bps.go.id/rest-bridging/getwilayah"
   return fetch(`${baseUrl}?level=${level}&parent=${parent}`, {
-        "credentials": "include",
-        "headers": {
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.5",
-            "X-Requested-With": "XMLHttpRequest",
-            "Sec-Fetch-Dest": "empty",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Site": "same-origin"
-        },
-        "referrer": "https://sig.bps.go.id/bridging-kode/index",
-        "method": "GET",
-        "mode": "cors"
-    })
+    "credentials": "include",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
+      "Accept": "*/*",
+      "Accept-Language": "en-US,en;q=0.5",
+      "X-Requested-With": "XMLHttpRequest",
+      "Sec-Fetch-Dest": "empty",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Site": "same-origin"
+    },
+    "referrer": "https://sig.bps.go.id/bridging-kode/index",
+    "method": "GET",
+    "mode": "cors"
+  })
     .then(res => res.json())
 }
 
