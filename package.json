@@ -2,9 +2,9 @@
   "name": "fetch-bridging-wilayah-bps-mendagri",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node src/fetch-bridging-wilayah.js"
   },
   "keywords": [],
   "author": "erdivartanovich",

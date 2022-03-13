@@ -9,7 +9,6 @@
 
 ``` javascript
     # Setup
-        $ cd fetch-bridging-wilayah-bps-mendagri
         $ pnpm install
     # Usage
         $ npm start

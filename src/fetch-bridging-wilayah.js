@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { promiseEach } from './promise-each.js'
+import { promiseEach } from './utils/utils.js'
 
 async function api(level, parent) {
   const baseUrl = "https://sig.bps.go.id/rest-bridging/getwilayah"
