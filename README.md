@@ -9,8 +9,14 @@
 
 ``` javascript
     # Setup
-        $ pnpm install
+    $ pnpm install
+
     # Usage
-        $ npm start
+    $ npm start
+    ## generated sql will be written in ./output/wilayah.sql
+
+    # Import data to your local mysql
+    $ mysql -h localhost -u db_user -p db_password db_name < output/wilayah.sql
+    ## change db_user, db_password, and db_name according to your local mysql database connection 
 ```
 

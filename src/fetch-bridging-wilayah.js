@@ -1,5 +1,7 @@
+import fs from 'fs'
 import fetch from 'node-fetch'
 import { promiseEach } from './utils/utils.js'
+import { tableTemplate, insertRecordTemplate } from './utils/sql-template.js'
 
 async function api(level, parent) {
   const baseUrl = "https://sig.bps.go.id/rest-bridging/getwilayah"
@@ -21,13 +23,14 @@ async function api(level, parent) {
     .then(res => res.json())
 }
 
+
 console.log("============= PROVINSI ===========")
 const provinces = await api('provinsi', 0)
 console.log(provinces)
 
 console.log("============= KABUPATEN ===========")
 let regencies = []
-await promiseEach([provinces[0]], async function(data) {
+await promiseEach(provinces, async function(data) {
   console.log('processing kabupaten di provinsi:', data.nama_bps)
   const result = await api('kabupaten', data.kode_bps)
   console.log(result)
@@ -36,7 +39,7 @@ await promiseEach([provinces[0]], async function(data) {
 
 console.log("============= KECAMATAN ===========")
 let districts = []
-await promiseEach([regencies[0]], async function(data) {
+await promiseEach(regencies, async function(data) {
   console.log('processing kecamatan di kabupaten:', data.nama_bps)
   const result = await api('kecamatan', data.kode_bps)
   console.log(result)
@@ -49,5 +52,47 @@ await promiseEach(districts, async function(data) {
   console.log('processing desa di kecamatan:', data.nama_bps)
   const result = await api('desa', data.kode_bps)
   console.log(result)
-  subDistricts.concat(result)
+  subDistricts = subDistricts.concat(result)
+})
+
+
+/**
+ * Prepare output sql file
+ * */
+const outputDir = './output'
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir);
+}
+const outputFile = './output/wilayah.sql'
+const tableProvinceName = 'tbl_wilayah_provinsi'
+const tableRegencyName = 'tbl_wilayah_kabupaten'
+const tableDistrictName = 'tbl_wilayah_kecamatan'
+const tableSubdistrictName = 'tbl_wilayah_desa'
+
+// write output
+fs.writeFileSync(outputFile, '-- ## PROVINSI ##\n')
+fs.appendFileSync(outputFile, tableTemplate(tableProvinceName))
+provinces.forEach(data => {
+  fs.appendFileSync(outputFile, insertRecordTemplate(tableProvinceName, data))
+})
+
+fs.appendFileSync(outputFile, '\n')
+fs.appendFileSync(outputFile, '-- ## KABUPATEN ##\n')
+fs.appendFileSync(outputFile, tableTemplate(tableRegencyName))
+regencies.forEach(data => {
+  fs.appendFileSync(outputFile, insertRecordTemplate(tableRegencyName, data))
+})
+
+fs.appendFileSync(outputFile, '\n')
+fs.appendFileSync(outputFile, '-- ## KECAMATAN ##\n')
+fs.appendFileSync(outputFile, tableTemplate(tableDistrictName))
+districts.forEach(data => {
+  fs.appendFileSync(outputFile, insertRecordTemplate(tableDistrictName, data))
+})
+
+fs.appendFileSync(outputFile, '\n')
+fs.appendFileSync(outputFile, '-- ## DESA ##\n')
+fs.appendFileSync(outputFile, tableTemplate(tableSubdistrictName))
+subDistricts.forEach(data => {
+  fs.appendFileSync(outputFile, insertRecordTemplate(tableSubdistrictName, data))
 })
