@@ -9,5 +9,5 @@ export function tableTemplate(tableName) {
 
 export function insertRecordTemplate(tableName, record) {
   const { kode_bps, nama_bps, kode_dagri, nama_dagri } = record
-  return `INSERT INTO \`${tableName}\` (\`kode_bps\`, \`nama_bps\`, \`kode_dagri\`, \`nama_dagri\`) VALUES ('${kode_bps}', '${nama_bps}', '${kode_dagri}', '${nama_dagri}');\n`
+  return `INSERT INTO \`${tableName}\` (\`kode_bps\`, \`nama_bps\`, \`kode_dagri\`, \`nama_dagri\`) VALUES (q'[${kode_bps}]', "q'[${nama_bps}]'", "q'[${kode_dagri}]'", "q'[${nama_dagri}]'");\n`
 }
