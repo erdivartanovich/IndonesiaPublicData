@@ -9,7 +9,7 @@ export function tableTemplate(tableName) {
 
 export function insertRecordTemplate(tableName, record) {
   let { kode_bps, nama_bps, kode_dagri, nama_dagri } = record
-  nama_bps = nama_bps.replace("'", "''")
-  nama_dagri = nama_dagri.replace("'", "''")
+  nama_bps = nama_bps.replaceAll("'", "''")
+  nama_dagri = nama_dagri.replaceAll("'", "''")
   return `INSERT INTO \`${tableName}\` (\`kode_bps\`, \`nama_bps\`, \`kode_dagri\`, \`nama_dagri\`) VALUES ('${kode_bps}', '${nama_bps}', '${kode_dagri}', '${nama_dagri}');\n`
 }
